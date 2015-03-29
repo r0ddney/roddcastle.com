@@ -71,6 +71,7 @@ add_theme_support( 'genesis-style-selector', array(
 	'parallax-pro-green'  => __( 'Parallax Pro Green', 'parallax' ),
 	'parallax-pro-orange' => __( 'Parallax Pro Orange', 'parallax' ),
 	'parallax-pro-pink'   => __( 'Parallax Pro Pink', 'parallax' ),
+	'parallax-pro-yellow'   => __( 'Parallax Pro Yellow', 'parallax' ),
 ) );
 
 //* Unregister secondary sidebar
@@ -166,6 +167,7 @@ function register_rc_about_me_widget() {
 add_action( 'widgets_init', 'register_rc_about_me_widget' );
 
 
+
 class RC_Current_Highlights_Widget extends WP_Widget {
 
 	/**
@@ -236,11 +238,94 @@ class RC_Current_Highlights_Widget extends WP_Widget {
 	}
 }
 
-// register RC_About_Me_Widget widget
+// register RC_Current_Highlights_Widget widget
 function register_rc_current_highlights_widget() {
     register_widget( 'RC_Current_Highlights_Widget' );
 }
 add_action( 'widgets_init', 'register_rc_current_highlights_widget' );
+
+
+
+class RC_Slider_Widget extends WP_Widget {
+
+	/**
+	 * Sets up the widgets name etc
+	 */
+	public function __construct() {
+		parent::__construct(
+			'slider_widget', // Base ID
+			__( 'Slider', 'text_domain' ), // Name
+			array( 'description' => __( 'A widget for displaying my images as a responsive slider', 'text_domain' ), ) // Args
+		);
+	}
+
+	/**
+	 * Outputs the content of the widget
+	 *
+	 * @param array $args
+	 * @param array $instance
+	 */
+	public function widget( $args, $instance ) {
+		$widget_id = $args['widget_id'];
+
+		echo $args['before_widget'];
+
+		if ( ! empty( $instance['title'] ) ) {
+			echo $args['before_title'] . apply_filters( 'widget_title', $instance['title'] ). $args['after_title'];
+		}
+
+		if(get_field('slider_images', 'widget_' . $widget_id)) {
+			echo '<div class="flexslider">';
+			echo '<ul class="slides">';
+			while(the_repeater_field('slider_images', 'widget_' . $widget_id)) {
+				$image_array = get_sub_field('image', 'widget_' . $widget_id);
+				echo '<li>';
+				echo '<img src="'.$image_array['url'].'" alt="'.$image_array['title'].'">';
+				echo '</li>';
+			}
+			echo '</ul>';
+			echo '</div>';
+		}
+
+		echo $args['after_widget'];
+	}
+
+	/**
+	 * Outputs the options form on admin
+	 *
+	 * @param array $instance The widget options
+	 */
+	public function form( $instance ) {
+		$title = ! empty( $instance['title'] ) ? $instance['title'] : __( 'New title', 'text_domain' );
+		?>
+		<p>
+		<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:' ); ?></label> 
+		<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>">
+		</p>
+		<?php 
+	}
+
+	/**
+	 * Processing widget options on save
+	 *
+	 * @param array $new_instance The new options
+	 * @param array $old_instance The previous options
+	 */
+	public function update( $new_instance, $old_instance ) {
+		$instance = array();
+		$instance['title'] = ( ! empty( $new_instance['title'] ) ) ? strip_tags( $new_instance['title'] ) : '';
+
+		return $instance;
+	}
+}
+
+// register RC_Slider_Widget widget
+function register_rc_slider_widget() {
+    register_widget( 'RC_Slider_Widget' );
+}
+add_action( 'widgets_init', 'register_rc_slider_widget' );
+
+
 
 //* Hook after post widget after the entry content
 add_action( 'genesis_after_entry', 'parallax_after_entry', 5 );
@@ -316,3 +401,29 @@ genesis_register_sidebar( array(
 	'name'        => __( 'After Entry', 'parallax' ),
 	'description' => __( 'This is the after entry widget area.', 'parallax' ),
 ) );
+
+/**
+	 * Register theme css and js
+	 *
+	 * @link http://teamtreehouse.com/library/wordpress-theme-development
+	 */
+function rc_theme_styles() {
+
+	wp_enqueue_style( 'flexslider_css', 'https://cdnjs.cloudflare.com/ajax/libs/flexslider/2.3.0/flexslider.css' );
+	wp_enqueue_style( 'flexslider_font_eot', 'https://cdnjs.cloudflare.com/ajax/libs/flexslider/2.3.0/fonts/flexslider-icon.eot' );
+	wp_enqueue_style( 'flexslider_font_svg', 'https://cdnjs.cloudflare.com/ajax/libs/flexslider/2.3.0/fonts/flexslider-icon.svg' );
+	wp_enqueue_style( 'flexslider_font_ttf', 'https://cdnjs.cloudflare.com/ajax/libs/flexslider/2.3.0/fonts/flexslider-icon.ttf' );
+	wp_enqueue_style( 'flexslider_font_woff', 'https://cdnjs.cloudflare.com/ajax/libs/flexslider/2.3.0/fonts/flexslider-icon.woff' );
+	wp_enqueue_style( 'flexslider_images', 'https://cdnjs.cloudflare.com/ajax/libs/flexslider/2.3.0/images/bg_play_pause.png' );
+
+}
+add_action( 'wp_enqueue_scripts', 'rc_theme_styles' );
+
+function rc_theme_js() {
+
+	wp_enqueue_script( 'flexslider_js', 'https://cdnjs.cloudflare.com/ajax/libs/flexslider/2.3.0/jquery.flexslider.js', array('jquery'), '', true );
+	wp_enqueue_script( 'rc_js', get_stylesheet_directory_uri() . '/js/rc-scripts.js', array('jquery'), '', true );	
+
+}
+add_action( 'wp_enqueue_scripts', 'rc_theme_js' );
+

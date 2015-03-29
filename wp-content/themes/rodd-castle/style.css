@@ -668,6 +668,8 @@ Common Classes
 .home-odd .widget-title {
 	font-size: 72px;
 	margin-bottom: 40px;
+	text-transform: uppercase;
+	letter-spacing: 1.5px;
 }
 
 
@@ -1595,7 +1597,9 @@ Color Styles
 .parallax-pro-orange a:hover,
 .parallax-pro-orange .entry-title a,
 .parallax-pro-pink a:hover,
-.parallax-pro-pink .entry-title a {
+.parallax-pro-pink .entry-title a,
+.parallax-pro-yellow a:hover,
+.parallax-pro-yellow .entry-title a {
 	color: #000;
 }
 
@@ -1610,7 +1614,10 @@ Color Styles
 .parallax-pro-orange .site-footer a,
 .parallax-pro-pink .genesis-nav-menu a,
 .parallax-pro-pink .home-odd a:hover,
-.parallax-pro-pink .site-footer a {
+.parallax-pro-pink .site-footer a,
+.parallax-pro-yellow .genesis-nav-menu a,
+.parallax-pro-yellow .home-odd a:hover,
+.parallax-pro-yellow .site-footer a {
 	color: #fff;
 }
 
@@ -1729,6 +1736,35 @@ Color Styles
 
 .parallax-pro-pink .pricing-table a.button:hover {
 	border: 3px solid #cb4082;
+}
+
+/* Parallax Pro Yellow
+--------------------------------------------- */
+
+.parallax-pro-yellow a,
+.parallax-pro-yellow .entry-title a:hover,
+.parallax-pro-yellow .genesis-nav-menu a:hover,
+.parallax-pro-yellow .genesis-nav-menu .current-menu-item > a,
+.parallax-pro-yellow .genesis-nav-menu .sub-menu a:hover,
+.parallax-pro-yellow .genesis-nav-menu .sub-menu .current-menu-item > a:hover,
+.parallax-pro-yellow .home-odd .featured-content .entry-title a:hover,
+.parallax-pro-yellow .site-footer a:hover,
+.parallax-pro-yellow .site-header .widget-area a:hover {
+	color: #FECC17;
+}
+
+.parallax-pro-yellow input:hover[type="button"],
+.parallax-pro-yellow input:hover[type="reset"],
+.parallax-pro-yellow input:hover[type="submit"],
+.parallax-pro-yellow .archive-pagination li a:hover,
+.parallax-pro-yellow .archive-pagination .active a,
+.parallax-pro-yellow .footer-widgets,
+.parallax-pro-yellow .pricing-table a.button:hover {
+	background-color: #FECC17;
+}
+
+.parallax-pro-yellow .pricing-table a.button:hover {
+	border: 3px solid #FECC17;
 }
 
 
