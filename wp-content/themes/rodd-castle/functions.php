@@ -27,7 +27,7 @@ function parallax_enqueue_scripts_styles() {
 
 	wp_enqueue_script( 'parallax-responsive-menu', get_bloginfo( 'stylesheet_directory' ) . '/js/responsive-menu.js', array( 'jquery' ), '1.0.0' );
 	wp_enqueue_style( 'dashicons' );
-	wp_enqueue_style( 'parallax-google-fonts', '//fonts.googleapis.com/css?family=Montserrat|Sorts+Mill+Goudy', array(), CHILD_THEME_VERSION );
+	wp_enqueue_style( 'parallax-google-fonts', '//fonts.googleapis.com/css?family=Montserrat|Sorts+Mill+Goudy|Open+Sans:300,400', array(), CHILD_THEME_VERSION );
 
 }
 
@@ -93,6 +93,20 @@ add_theme_support( 'genesis-structural-wraps', array(
 	'footer-widgets',
 	'footer',
 ) );
+
+//* Include Featured Post Widget
+include_once( CHILD_DIR . '/lib/featured-project-widget.php' );
+function rc_replace_featured_post_widget() {
+  // unregister the Genesis widget..
+  unregister_widget( 'Genesis_Featured_Post' );
+  
+  // register our custom widget..
+  register_widget( 'RC_Featured_Project' );
+}
+add_action( 'widgets_init', 'rc_replace_featured_post_widget' );
+
+//* Add Featured Project image size
+add_image_size( 'featured-project', 500, 500, true );
 
 
 class RC_About_Me_Widget extends WP_Widget {
@@ -202,7 +216,9 @@ class RC_Current_Highlights_Widget extends WP_Widget {
 
 		if(get_field('highlight', 'widget_' . $widget_id)) {
 			while(the_repeater_field('highlight', 'widget_' . $widget_id)) {
+				echo '<div class="one-third">';
 				the_sub_field('content', 'widget_' . $widget_id);
+				echo '</div>';
 			}
 		}
 
@@ -296,12 +312,12 @@ class RC_Slider_Widget extends WP_Widget {
 	 * @param array $instance The widget options
 	 */
 	public function form( $instance ) {
-		$title = ! empty( $instance['title'] ) ? $instance['title'] : __( 'New title', 'text_domain' );
+		//$title = ! empty( $instance['title'] ) ? $instance['title'] : __( 'New title', 'text_domain' );
 		?>
-		<p>
-		<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:' ); ?></label> 
-		<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>">
-		</p>
+		<!-- <p>
+		<label for="<?php //echo $this->get_field_id( 'title' ); ?>"><?php //_e( 'Title:' ); ?></label> 
+		<input class="widefat" id="<?php //echo $this->get_field_id( 'title' ); ?>" name="<?php //echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php //echo esc_attr( $title ); ?>">
+		</p> -->
 		<?php 
 	}
 
@@ -313,7 +329,7 @@ class RC_Slider_Widget extends WP_Widget {
 	 */
 	public function update( $new_instance, $old_instance ) {
 		$instance = array();
-		$instance['title'] = ( ! empty( $new_instance['title'] ) ) ? strip_tags( $new_instance['title'] ) : '';
+		//$instance['title'] = ( ! empty( $new_instance['title'] ) ) ? strip_tags( $new_instance['title'] ) : '';
 
 		return $instance;
 	}

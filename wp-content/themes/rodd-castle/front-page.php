@@ -80,7 +80,7 @@ function parallax_homepage_widgets() {
 	) );
 
 	genesis_widget_area( 'home-section-5', array(
-		'before' => '<div class="home-odd home-section-5 widget-area"><div class="wrap">',
+		'before' => '<div class="home-even home-section-5 widget-area"><div class="wrap">',
 		'after'  => '</div></div>',
 	) );
 

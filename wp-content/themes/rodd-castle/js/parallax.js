@@ -16,13 +16,13 @@ jQuery(function( $ ){
 
 		// }
 
-		if( scrollwindow > $(".home-section-5").offset().top ) {
+		// if( scrollwindow > $(".home-section-5").offset().top ) {
 
-			// Enable parallax effect
-			backgroundscroll = scrollwindow - $(".home-section-5").offset().top;
-			$(".home-section-5").css("backgroundPosition", "0px " + -(backgroundscroll/6) + "px");
+		// 	// Enable parallax effect
+		// 	backgroundscroll = scrollwindow - $(".home-section-5").offset().top;
+		// 	$(".home-section-5").css("backgroundPosition", "0px " + -(backgroundscroll/6) + "px");
 
-		}
+		// }
 
 	});
 

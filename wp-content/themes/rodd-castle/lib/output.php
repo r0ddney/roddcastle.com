@@ -15,7 +15,7 @@ function parallax_css() {
 	$handle  = defined( 'CHILD_THEME_NAME' ) && CHILD_THEME_NAME ? sanitize_title_with_dashes( CHILD_THEME_NAME ) : 'child-theme';
 
 	// $opts = apply_filters( 'parallax_images', array( '1', '3', '5' ) );
-	$opts = apply_filters( 'parallax_images', array( '1', '5' ) );
+	$opts = apply_filters( 'parallax_images', array( '1' ) );
 
 	$settings = array();
 
