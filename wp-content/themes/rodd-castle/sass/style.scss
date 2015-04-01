@@ -869,7 +869,8 @@ Common Classes
 }
 
 .home-even .widget-title,
-.home-odd .widget-title {
+.home-odd .widget-title,
+.footer-widgets .widget-title {
 	font-size: 72px;
 	margin-bottom: 40px;
 	text-transform: uppercase;
@@ -1808,13 +1809,28 @@ Footer Widgets
 .footer-widgets {
 	background-color: #f04848;
 	clear: both;
-	font-size: 24px;
+	font-size: 28px;
 	padding: 100px 0;
 	text-align: center;
+	//overflow: hidden;
 }
 
 .footer-widgets {
 	background-color: transparent !important;
+	// &:before,
+	// &:after {
+	//   content: "";
+	//   display: table;
+	// }
+ 
+	// &:after {
+	//   clear: both;
+	// }
+ 
+	// zoom: 1; /* ie 6/7 */
+	.wrap {
+		max-width: none;
+	}
 }
 
 .footer-widgets,
@@ -1835,12 +1851,50 @@ Footer Widgets
 	margin-bottom: 0;
 }
 
+#null-instagram-feed-2 {
+	// &:before,
+	// &:after {
+	//   content: "";
+	//   display: table;
+	// }
+ 
+	// &:after {
+	//   clear: both;
+	// }
+ 
+	// zoom: 1; /* ie 6/7 */
+	background-color: rgba(0,0,0,0.5);
+	margin-bottom: 0;
+}
+
+.instagram-pics {
+	&:before,
+	&:after {
+	  content: "";
+	  display: table;
+	}
+ 
+	&:after {
+	  clear: both;
+	}
+ 
+	zoom: 1; /* ie 6/7 */
+}
+
 .instagram-pics li {
 	float: left;
 	width: 33.333333333333%;
-	position: absolute;
+	position: relative;
 	z-index: -99;
-	margin-top: -250px;
+	// margin-top: -250px;
+}
+
+#text-3 {
+	position: relative;
+	margin-top: -25%;
+}
+
+#cnss_widget-2 {
 }
 
 
@@ -1852,6 +1906,7 @@ Site Footer
 	background-color: #000;
 	padding: 40px 0;
 	text-align: center;
+	// margin-top: 20%;
 }
 
 .site-footer a,

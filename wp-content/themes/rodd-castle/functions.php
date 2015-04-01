@@ -94,6 +94,27 @@ add_theme_support( 'genesis-structural-wraps', array(
 	'footer',
 ) );
 
+//* Remove the site footer
+remove_action( 'genesis_footer', 'genesis_footer_markup_open', 5 );
+remove_action( 'genesis_footer', 'genesis_do_footer' );
+remove_action( 'genesis_footer', 'genesis_footer_markup_close', 15 );
+
+//* Customize the site footer
+add_action( 'genesis_footer', 'rc_custom_footer' );
+function rc_custom_footer() { ?>
+ 
+	<div class="site-footer">
+		<div class="wrap">
+			<img src="<?php echo get_stylesheet_directory_uri() . '/images/color_logo.svg'; ?>" alt="logo">
+			<p>Coopers Beach, New Zealand</p>
+			<p>***</p>
+			<p>&copy;<?php echo date("Y"); ?> RODD CASTLE</p>
+		</div>
+	</div>
+ 
+<?php
+}
+
 //* Include Featured Post Widget
 include_once( CHILD_DIR . '/lib/featured-project-widget.php' );
 function rc_replace_featured_post_widget() {
@@ -340,6 +361,15 @@ function register_rc_slider_widget() {
     register_widget( 'RC_Slider_Widget' );
 }
 add_action( 'widgets_init', 'register_rc_slider_widget' );
+
+
+// Add contact area scrim to instagram widget
+// function instagram_widget_add_scrim() {
+//     echo "string";
+// }
+// add_action( 'wpiw_before_widget', 'instagram_widget_add_scrim' );
+//do_action( 'wpiw_before_widget', $instance );
+
 
 
 
