@@ -836,6 +836,14 @@ Common Classes
 	font-size: 36px;
 }
 
+.home-section-5 {
+	.entry-title {
+		font-family: Montserrat, sans-serif;
+		font-size: 21px;
+		text-transform: uppercase;
+	}
+}
+
 .sidebar .entry-title {
 	font-size: 24px;
 	text-align: left;
@@ -872,6 +880,7 @@ Common Classes
 	.widget-title {
 		font-size: 24px;
 	}
+
 }
 
 
@@ -1343,12 +1352,15 @@ Content Area
 	background-size:         cover;
 }
 
-.home-section-2 {
-	padding-top: 0;
-	overflow: visible;
+.home-section-2, .home-section-5 {
 	font-size: 24px;
 	font-family: 'Open Sans', sans-serif;
 	font-weight: 300;
+}
+
+.home-section-2 {
+	padding-top: 0;
+	overflow: visible;
 }
 
 .home-section-3 {
@@ -1493,6 +1505,10 @@ Content Area
 	margin-bottom: 100px;
 }
 
+.home-section-5 .entry {
+	margin-bottom: 32px;
+}
+
 .sidebar .entry {
 	margin-bottom: 40px;
 }
@@ -1527,6 +1543,13 @@ Content Area
 p.entry-meta {
 	font-size: 20px;
 	margin-bottom: 0;
+}
+
+.home-section-5 {
+	p.entry-meta {
+		font-size: 16px;
+		text-transform: uppercase;
+	}
 }
 
 .entry-header {
@@ -1790,6 +1813,10 @@ Footer Widgets
 	text-align: center;
 }
 
+.footer-widgets {
+	background-color: transparent !important;
+}
+
 .footer-widgets,
 .footer-widgets a:hover {
 	color: #fff !important;
@@ -1806,6 +1833,14 @@ Footer Widgets
 .footer-widgets p:last-child,
 .footer-widgets .widget:last-child {
 	margin-bottom: 0;
+}
+
+.instagram-pics li {
+	float: left;
+	width: 33.333333333333%;
+	position: absolute;
+	z-index: -99;
+	margin-top: -250px;
 }
 
 

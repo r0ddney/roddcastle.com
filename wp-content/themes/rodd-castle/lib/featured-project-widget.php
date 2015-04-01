@@ -95,10 +95,14 @@ class RC_Featured_Project extends WP_Widget {
 		$instance = wp_parse_args( (array) $instance, $this->defaults );
 
 		echo $args['before_widget'];
+		//print_r($instance);
 
 		//* Set up the author bio
 		if ( ! empty( $instance['title'] ) )
 			echo $args['before_title'] . apply_filters( 'widget_title', $instance['title'], $instance, $this->id_base ) . $args['after_title'];
+
+		if ( ! empty( $instance['info_text'] ) )
+			echo "<p>".$instance['info_text']."</p>";
 
 		$query_args = array(
 			'post_type' => 'post',
@@ -113,22 +117,16 @@ class RC_Featured_Project extends WP_Widget {
 		if ( $instance['exclude_displayed'] )
 			$query_args['post__not_in'] = (array) $_genesis_displayed_ids;
 
-		//* Add .one-fourth class to output 
-		
+		//* Add .one-fourth class to output		
 		function rc_attr_entry_output( $output, $attributes, $context ){
 			static $count = 0;
-			// print_r($attributes);
-			// echo '----';
-			// print_r($context);
 			$classes = $attributes['class'];
 			if ( $count % 4 == 0 ) {
 				$attributes['class'] = $classes . ' one-fourth first';
 			} else {
 				$attributes['class'] = $classes . ' one-fourth';
 			}
-			// echo "<pre>";
-			// print_r($output);
-			// echo "</pre>";
+
 			$output = 'class="'.$attributes['class'].'" itemscope="'.$attributes['itemscope'].'" itemtype="'.$attributes['itemtype'].'"';
 
 			$count++;
@@ -136,6 +134,16 @@ class RC_Featured_Project extends WP_Widget {
 			return $output;
 		}
 		add_filter( 'genesis_attr_entry_output', 'rc_attr_entry_output', 10, 3 );
+
+		//Remove "Filed Under:" from categories ouput
+		// function rc_cat_shrotcode_output( $output, $atts ){
+		// 	print_r($atts);
+		// 	print_r($output);
+
+		// 	return $output;
+		// }
+		// add_filter( 'genesis_post_categories_shortcode', 'rc_cat_shrotcode_output', 10, 2 );
+		//return apply_filters( 'genesis_post_categories_shortcode', $output, $atts );
 
 		$wp_query = new WP_Query( $query_args );
 
@@ -168,6 +176,9 @@ class RC_Featured_Project extends WP_Widget {
 			if ( $instance['show_title'] )
 				echo genesis_html5() ? '<header class="entry-header">' : '';
 
+				if ( ! empty( $instance['show_byline'] ) && ! empty( $instance['post_info'] ) )
+					printf( genesis_html5() ? '<p class="entry-meta">%s</p>' : '<p class="byline post-info">%s</p>', do_shortcode( $instance['post_info'] ) );
+
 				if ( ! empty( $instance['show_title'] ) ) {
 
 					$title = get_the_title() ? get_the_title() : __( '(no title)', 'genesis' );
@@ -178,9 +189,6 @@ class RC_Featured_Project extends WP_Widget {
 						printf( '<h2><a href="%s">%s</a></h2>', get_permalink(), esc_html( $title ) );
 
 				}
-
-				if ( ! empty( $instance['show_byline'] ) && ! empty( $instance['post_info'] ) )
-					printf( genesis_html5() ? '<p class="entry-meta">%s</p>' : '<p class="byline post-info">%s</p>', do_shortcode( $instance['post_info'] ) );
 
 			if ( $instance['show_title'] )
 				echo genesis_html5() ? '</header>' : '';
@@ -282,6 +290,7 @@ class RC_Featured_Project extends WP_Widget {
 	function update( $new_instance, $old_instance ) {
 
 		$new_instance['title']     = strip_tags( $new_instance['title'] );
+		$new_instance['info_text'] = strip_tags( $new_instance['info_text'] );
 		$new_instance['more_text'] = strip_tags( $new_instance['more_text'] );
 		$new_instance['post_info'] = wp_kses_post( $new_instance['post_info'] );
 		return $new_instance;
@@ -304,6 +313,11 @@ class RC_Featured_Project extends WP_Widget {
 		<p>
 			<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title', 'genesis' ); ?>:</label>
 			<input type="text" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" value="<?php echo esc_attr( $instance['title'] ); ?>" class="widefat" />
+		</p>
+
+		<p>
+			<label for="<?php echo $this->get_field_id( 'info_text' ); ?>"><?php _e( 'Info Text', 'genesis' ); ?>:</label>
+			<input type="text" id="<?php echo $this->get_field_id( 'info_text' ); ?>" name="<?php echo $this->get_field_name( 'info_text' ); ?>" value="<?php echo esc_attr( $instance['info_text'] ); ?>" class="widefat" />
 		</p>
 
 		<div class="genesis-widget-column">
