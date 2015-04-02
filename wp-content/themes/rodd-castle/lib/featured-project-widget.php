@@ -184,9 +184,9 @@ class RC_Featured_Project extends WP_Widget {
 					$title = get_the_title() ? get_the_title() : __( '(no title)', 'genesis' );
 
 					if ( genesis_html5() )
-						printf( '<h2 class="entry-title"><a href="%s">%s</a></h2>', get_permalink(), esc_html( $title ) );
+						printf( '<h2 class="entry-title"><a href="%s" rel="ajax:modal" data-post_id="%s">%s</a></h2>', get_permalink(), get_the_ID(), esc_html( $title ) );
 					else
-						printf( '<h2><a href="%s">%s</a></h2>', get_permalink(), esc_html( $title ) );
+						printf( '<h2><a href="%s" rel="ajax:modal" data-post_id="%s">%s</a></h2>', get_permalink(), get_the_ID(), esc_html( $title ) );
 
 				}
 

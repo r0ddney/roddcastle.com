@@ -1,5 +1,8 @@
 jQuery(document).ready(function($) {
-  $('.flexslider').flexslider({
-    animation: "slide"
-  });
+
+	// Initialise slider
+	$('.flexslider').flexslider({
+		animation: "slide"
+	});
+
 });

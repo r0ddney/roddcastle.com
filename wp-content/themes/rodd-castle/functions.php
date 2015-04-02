@@ -461,6 +461,7 @@ function rc_theme_styles() {
 	wp_enqueue_style( 'flexslider_font_ttf', 'https://cdnjs.cloudflare.com/ajax/libs/flexslider/2.3.0/fonts/flexslider-icon.ttf' );
 	wp_enqueue_style( 'flexslider_font_woff', 'https://cdnjs.cloudflare.com/ajax/libs/flexslider/2.3.0/fonts/flexslider-icon.woff' );
 	wp_enqueue_style( 'flexslider_images', 'https://cdnjs.cloudflare.com/ajax/libs/flexslider/2.3.0/images/bg_play_pause.png' );
+	wp_enqueue_style( 'modal_css', get_stylesheet_directory_uri() . '/js/jquery-modal-master/jquery.modal.css' );
 
 }
 add_action( 'wp_enqueue_scripts', 'rc_theme_styles' );
@@ -468,8 +469,62 @@ add_action( 'wp_enqueue_scripts', 'rc_theme_styles' );
 function rc_theme_js() {
 
 	wp_enqueue_script( 'flexslider_js', 'https://cdnjs.cloudflare.com/ajax/libs/flexslider/2.3.0/jquery.flexslider.js', array('jquery'), '', true );
+	wp_enqueue_script( 'modal_js', get_stylesheet_directory_uri() . '/js/jquery-modal-master/jquery.modal.min.js', array('jquery'), '', true );	
 	wp_enqueue_script( 'rc_js', get_stylesheet_directory_uri() . '/js/rc-scripts.js', array('jquery'), '', true );	
+
+	wp_register_script( "rc_personal_project_js", get_stylesheet_directory_uri().'/js/rc-personal-project.js', array('jquery') );
+	wp_localize_script( 'rc_personal_project_js', 'rcAjax', array( 'ajaxurl' => admin_url( 'admin-ajax.php' )));        
+	wp_enqueue_script( 'rc_personal_project_js' );
 
 }
 add_action( 'wp_enqueue_scripts', 'rc_theme_js' );
 
+//Personal Projects Ajax Function
+add_action("wp_ajax_rc_personal_project", "rc_personal_project");
+add_action("wp_ajax_nopriv_rc_personal_project", "rc_personal_project");
+
+function rc_personal_project() {
+
+   $post_id = $_REQUEST["post_id"];
+
+   $query = new WP_Query( 'p='.$post_id );
+   $the_title;
+   $images = [];
+   if ( $query->have_posts() ) : while ( $query->have_posts() ) : $query->the_post();
+   	$the_title = get_the_title();
+
+   	if( have_rows('project_images') ) {
+   		// loop through the rows of data
+	    while ( have_rows('project_images') ) : the_row();
+	        // display a sub field value
+	    	array_push($images, get_sub_field('image'));
+	    endwhile;
+   	}
+
+
+   endwhile; 
+   wp_reset_postdata();
+   else :
+   	//_e( 'Sorry, no posts matched your criteria.' )
+   	endif;
+
+   if($the_title === false) {
+      $result['type'] = "error";
+   }
+   else {
+      $result['type'] = "success";
+      $result['the_title'] = $the_title;
+      $result['project_images'] = $images;
+   }
+
+   if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
+      $result = json_encode($result);
+      echo $result;
+   }
+   else {
+      header("Location: ".$_SERVER["HTTP_REFERER"]);
+   }
+
+   die();
+
+}
