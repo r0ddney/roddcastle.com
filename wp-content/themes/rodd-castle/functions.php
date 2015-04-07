@@ -501,6 +501,9 @@ function rc_personal_project() {
 	    endwhile;
    	}
 
+   	$project_info = get_field('project_info');
+   	$project_date = get_field('project_date');
+   	$project_tools = get_field('tools_used');
 
    endwhile; 
    wp_reset_postdata();
@@ -515,6 +518,9 @@ function rc_personal_project() {
       $result['type'] = "success";
       $result['the_title'] = $the_title;
       $result['project_images'] = $images;
+      $result['project_info'] = $project_info;
+      $result['project_date'] = $project_date;
+      $result['project_tools'] = $project_tools;
    }
 
    if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {

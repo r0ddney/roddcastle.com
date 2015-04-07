@@ -66,6 +66,7 @@
 	- Content Area
 		- Homepage
 		- About Me
+		- Modal
 		- Pricing Table
 		- Content
 		- Entries
@@ -703,12 +704,12 @@ Structure and Layout
 
 .one-third,
 .two-sixths {
-	width: 30.623931623931625%;
+	width: 29.623931623931625%;
 }
 
 .four-sixths,
 .two-thirds {
-	width: 65.81196581196582%;
+	width: 64.81196581196582%;
 }
 
 .one-fourth {
@@ -1060,7 +1061,7 @@ Site Header
 	background-color: #000;
 	position: fixed;
 	width: 100%;
-	z-index: 999;
+	z-index: 1;
 }
 
 /* Title Area
@@ -1403,6 +1404,21 @@ Content Area
 	position: relative;
   	margin-top: -125px;
   	border: solid 4px white;
+}
+
+/* Modal
+--------------------------------------------- */
+
+div.modal {
+	width: 70% !important;
+	overflow: hidden;
+	background-color: $grey-lighter;
+	@include border-radius(0px);
+
+	a.close-modal {
+		top: 12.5px;
+		right: 12.5px;
+	}
 }
 
 /* Pricing Table

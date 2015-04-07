@@ -3,56 +3,84 @@ jQuery(document).ready(function($) {
 	//Ajax modal post content request
 	$('a[rel="ajax:modal"]').click(function(event) {
 
-		var post_id = $(this).attr("data-post_id");
-		console.log(post_id);
+		console.log($(window).width());
+		if( $(window).width() > 1006 ) {
 
-		$('body').append('<div class="modal-spinner" style="display: block;"></div>');
+			var post_id = $(this).attr("data-post_id");
+			console.log(post_id);
 
-		jQuery.ajax({
-			type : "post",
-			dataType : "json",
-			url : rcAjax.ajaxurl,
-			data : {action: "rc_personal_project", post_id : post_id},
-			success: function(response) {
-				if(response.type == "success") {
-				   //jQuery("#vote_counter").html(response.vote_count)
-				   $('body').append('<div class="modal"><p>'+response.the_title+'</p></div>');
-				   console.log(response.project_images);
-				   $('.modal').append(response.project_images[0]['url']);
-					$('.modal').modal({
-						fadeDuration: 500
-					});
-				   $('.modal-spinner').removeAttr('style');
-					
+			$('body').append('<div class="modal-spinner" style="display: block;"></div>');
 
-					$('.modal').on($.modal.BEFORE_CLOSE, function(event, modal) {
-					  $('.modal').remove();
-					});   
+			jQuery.ajax({
+				type : "post",
+				dataType : "json",
+				url : rcAjax.ajaxurl,
+				data : {action: "rc_personal_project", post_id : post_id},
+				success: function(response) {
+					if(response.type == "success") {
+					   //jQuery("#vote_counter").html(response.vote_count)
+					   var $modal = $('<div class="modal"></div>');
+					   var $two_thirds = $('<div class="two-thirds"></div>');
+					   var $flexslider = $('<div id="project_slider" class="flexslider"></div>');
+					   var $slides = $('<ul class="slides"></ul>');
+					   var $one_third = $('<div class="one-third"></div>');
+
+					   $('body').append($modal);
+
+						for (var i = 0; i < response.project_images.length; i++) {
+							$slides.append('<li><img src="'+response.project_images[i]['url']+'" alt="'+response.project_images[i]['title']+'"></li>');
+						};
+					   $flexslider.append($slides);
+					   $two_thirds.append($flexslider);
+
+					   $one_third.append('<h4>'+response.the_title+'</h4>');
+					   $one_third.append('<p>'+response.project_info+'</p>');
+					   $one_third.append('<p>'+response.project_date+'</p>');
+					   $one_third.append('<p>'+response.project_tools+'</p>');
+
+					   $modal.append($two_thirds);
+					   $modal.append($one_third);
+
+						$modal.modal({
+							fadeDuration: 500
+						});
+						$('.modal').height($(window).height()/1.2);
+					   $('.modal-spinner').removeAttr('style');
+						
+						$('#project_slider').flexslider();
+
+						$('.modal').on($.modal.BEFORE_CLOSE, function(event, modal) {
+						  $('.modal').remove();
+						});   
+					}
+					else {
+					   console.log("fail");
+					}
 				}
-				else {
-				   alert("Epic fail");
-				}
-			}
-		});
+			});
 
-		// $.ajax({
+			// $.ajax({
 
-		// 	url: $(this).attr('href'),
+			// 	url: $(this).attr('href'),
 
-		// 	success: function(newHTML, textStatus, jqXHR) {
-		// 	  $(newHTML).appendTo('body').modal();
-		// 	},
+			// 	success: function(newHTML, textStatus, jqXHR) {
+			// 	  $(newHTML).appendTo('body').modal();
+			// 	},
 
-		// 	error: function(jqXHR, textStatus, errorThrown) {
-		// 	  // Handle AJAX errors
-		// 	}
+			// 	error: function(jqXHR, textStatus, errorThrown) {
+			// 	  // Handle AJAX errors
+			// 	}
 
-		// 	// More AJAX customization goes here.
+			// 	// More AJAX customization goes here.
 
-		// });
+			// });
 
-		return false;
+			return false;
+
+		} //if( $(window).width() > 768 )
+
 	});
+
 
 	// jQuery(".user_vote").click( function() {
  //      post_id = jQuery(this).attr("data-post_id")
