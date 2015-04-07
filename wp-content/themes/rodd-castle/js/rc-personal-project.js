@@ -27,13 +27,15 @@ jQuery(document).ready(function($) {
 
 					   $('body').append($modal);
 
+					   console.log(response.project_images);
+
 						for (var i = 0; i < response.project_images.length; i++) {
-							$slides.append('<li><img src="'+response.project_images[i]['url']+'" alt="'+response.project_images[i]['title']+'"></li>');
+							$slides.append('<li><img src="'+response.project_images[i]['sizes']['project-image']+'" alt="'+response.project_images[i]['title']+'"></li>');
 						};
 					   $flexslider.append($slides);
 					   $two_thirds.append($flexslider);
 
-					   $one_third.append('<h4>'+response.the_title+'</h4>');
+					   $one_third.append('<h4 class="widget-title">'+response.the_title+'</h4>');
 					   $one_third.append('<p>'+response.project_info+'</p>');
 					   $one_third.append('<p>'+response.project_date+'</p>');
 					   $one_third.append('<p>'+response.project_tools+'</p>');
@@ -48,9 +50,27 @@ jQuery(document).ready(function($) {
 					   $('.modal-spinner').removeAttr('style');
 						
 						$('#project_slider').flexslider();
+						$('#project_slider').height($('.modal').height());
+
+						timeoutID = window.setTimeout(slowAlert, 500);
+
+						function slowAlert() {
+							$('.slides li').each( function() {
+							    var height = $('#project_slider').height();
+							    console.log(height);
+							    var imageHeight = $(this).find('img').height();
+							    console.log(imageHeight);
+
+							    var offset = (height - imageHeight) / 2;
+
+							    $(this).css('margin-top', offset + 'px');
+
+							});
+						}
 
 						$('.modal').on($.modal.BEFORE_CLOSE, function(event, modal) {
 						  $('.modal').remove();
+						  window.clearTimeout(timeoutID);
 						});   
 					}
 					else {

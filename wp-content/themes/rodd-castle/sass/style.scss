@@ -871,14 +871,15 @@ Common Classes
 
 .home-even .widget-title,
 .home-odd .widget-title,
-.footer-widgets .widget-title {
+.footer-widgets .widget-title,
+.modal .widget-title {
 	font-size: 72px;
 	margin-bottom: 40px;
 	text-transform: uppercase;
 	letter-spacing: 1.5px;
 }
 
-.home-section-2, .home-section-3, .home-section-5 {
+.home-section-2, .home-section-3, .home-section-5, .modal {
 	.widget-title {
 		font-size: 24px;
 	}
@@ -1412,13 +1413,32 @@ Content Area
 div.modal {
 	width: 70% !important;
 	overflow: hidden;
-	background-color: $grey-lighter;
+	background-color: white;
+	padding: 0;
+	font-size: 16px;
+  	font-family: 'Open Sans', sans-serif;
+  	font-weight: 400;
 	@include border-radius(0px);
+
+	.two-thirds {
+		background-color: $grey-lighter;
+		margin-left: 0;
+	}
+
+	.one-third {
+		margin-top: 30px;
+	}
 
 	a.close-modal {
 		top: 12.5px;
 		right: 12.5px;
 	}
+}
+
+#project_slider {
+	overflow: hidden;
+	background: transparent;
+	border: none;
 }
 
 /* Pricing Table
