@@ -27,7 +27,7 @@ function parallax_enqueue_scripts_styles() {
 
 	wp_enqueue_script( 'parallax-responsive-menu', get_bloginfo( 'stylesheet_directory' ) . '/js/responsive-menu.js', array( 'jquery' ), '1.0.0' );
 	wp_enqueue_style( 'dashicons' );
-	wp_enqueue_style( 'parallax-google-fonts', '//fonts.googleapis.com/css?family=Montserrat|Sorts+Mill+Goudy|Open+Sans:300,400', array(), CHILD_THEME_VERSION );
+	wp_enqueue_style( 'parallax-google-fonts', '//fonts.googleapis.com/css?family=Montserrat|Sorts+Mill+Goudy:400,400italic|Open+Sans:300,400', array(), CHILD_THEME_VERSION );
 
 }
 
@@ -176,7 +176,7 @@ class RC_About_Me_Widget extends WP_Widget {
 		if ( get_field('profile_image', 'widget_' . $widget_id) ) {
 			$profile_image = get_field('profile_image', 'widget_' . $widget_id);
 			//print_r($profile_image);
-			echo '<img id="profile_image" src="'.$profile_image['url'].'" alt="'.$profile_image['title'].'">';
+			echo '<img id="profile_image" src="'.$profile_image['sizes']['featured-project'].'" alt="'.$profile_image['title'].'">';
 		}
 		if ( ! empty( $instance['title'] ) ) {
 			echo $args['before_title'] . apply_filters( 'widget_title', $instance['title'] ). $args['after_title'];

@@ -316,7 +316,7 @@ Color Styles
 
 $grey-lighter: #F2F2F2;
 $grey: #ffff;
-$grey-darker: #ffff;
+$grey-darker: #808080;
 
 $yellow: #FECC17;
 
@@ -883,8 +883,19 @@ Common Classes
 .home-section-2, .home-section-3, .home-section-5, .modal {
 	.widget-title {
 		font-size: 24px;
+		&:after {
+			border-bottom: 3px solid $yellow;
+			content: "";
+			display: block;
+			margin: 0 auto 60px;
+			padding-bottom: 30px;
+			width: 95px;
+		}
 	}
+}
 
+.modal .widget-title:after {
+	margin: 0 0 60px;
 }
 
 
@@ -1360,6 +1371,9 @@ Content Area
 	font-size: 24px;
 	font-family: 'Open Sans', sans-serif;
 	font-weight: 300;
+	p {
+		color: $grey-darker;
+	}
 }
 
 .home-section-2 {
@@ -1396,6 +1410,14 @@ Content Area
 	}
 }
 
+.home-section-1, .footer-widgets {
+	p {
+		font-style: italic;
+		+p {
+			font-style: normal;
+		}
+	}
+}
 /* About Me
 --------------------------------------------- */
 
@@ -1405,6 +1427,7 @@ Content Area
 	@include border-radius(50%);
 	position: relative;
   	margin-top: -125px;
+  	margin-bottom: 48px;
   	border: solid 4px white;
 }
 
