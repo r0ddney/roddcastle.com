@@ -66,6 +66,7 @@
 	- Content Area
 		- Homepage
 		- About Me
+		- Current Highlights
 		- Modal
 		- Pricing Table
 		- Content
@@ -1418,6 +1419,7 @@ Content Area
 		}
 	}
 }
+
 /* About Me
 --------------------------------------------- */
 
@@ -1429,6 +1431,19 @@ Content Area
   	margin-top: -125px;
   	margin-bottom: 48px;
   	border: solid 4px white;
+}
+
+/* Current Highlights
+--------------------------------------------- */
+
+.icon {
+	&:hover {
+		cursor: pointer;
+	}
+}
+
+.icon_hover {
+	display: none;
 }
 
 /* Modal

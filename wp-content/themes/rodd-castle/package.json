@@ -1,0 +1,22 @@
+{
+  "name": "roddcastle.com",
+  "version": "0.0.1",
+  "description": "Genesis theme for roddcastle.com",
+  "main": "front-page.php",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/r0ddney/roddcastle.com"
+  },
+  "author": "Rodd Castle",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/r0ddney/roddcastle.com/issues"
+  },
+  "homepage": "https://github.com/r0ddney/roddcastle.com",
+  "devDependencies": {
+    "grunt": "^0.4.5"
+  }
+}

@@ -258,7 +258,12 @@ class RC_Current_Highlights_Widget extends WP_Widget {
 
 		if(get_field('highlight', 'widget_' . $widget_id)) {
 			while(the_repeater_field('highlight', 'widget_' . $widget_id)) {
+				$icon = get_sub_field('icon', 'widget_' . $widget_id);
+				$icon_hover = get_sub_field('icon_hover', 'widget_' . $widget_id);
+				//print_r($icon);
 				echo '<div class="one-third">';
+				echo '<img class="icon" src="'.$icon['url'].'" alt="'.$icon['title'].'">';
+				echo '<img class="icon_hover" src="'.$icon_hover['url'].'" alt="'.$icon_hover['title'].'">';
 				the_sub_field('content', 'widget_' . $widget_id);
 				echo '</div>';
 			}
