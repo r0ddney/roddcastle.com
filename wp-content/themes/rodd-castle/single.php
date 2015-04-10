@@ -7,19 +7,32 @@
  * @subpackage Customizations
  */
 
-function acf_do() {
+function acf_project_content() {
+
+   the_field('project_info');
+   echo '<p>'.get_field('project_date').'</p>';
+   echo '<p>'.get_field('tools_used').'</p>';
+
    if( have_rows('project_images') ) {
    		// loop through the rows of data
-	    while ( have_rows('project_images') ) : the_row();
-	        // display a sub field value
-	    	the_sub_field('image');
-	    endwhile;
-   	}
+      // echo '<div id="project_slider" class="flexslider">';
+      // echo '<ul class="slides">';
+      while ( have_rows('project_images') ) : the_row();
+        // display a sub field value
+         $image_array = get_sub_field('image');
+         echo '<img src="'.$image_array['sizes']['project-image'].'" alt="'.$image_array['title'].'">';
+      endwhile;
+      // echo '</ul>';
+      // echo '</div>';
+	}
 
-   	the_field('project_info');
-   	the_field('project_date');
-   	the_field('tools_used');
 }
-add_action( 'genesis_entry_content', 'acf_do' );
+add_action( 'genesis_entry_content', 'acf_project_content' );
+
+//Remove date added and posted by
+remove_action( 'genesis_entry_header', 'genesis_post_info', 12 );
+
+//* Remove the entry meta in the entry footer (requires HTML5 theme support)
+remove_action( 'genesis_entry_footer', 'genesis_post_meta' );
 
 genesis();

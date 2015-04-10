@@ -115,6 +115,26 @@ function rc_custom_footer() { ?>
 <?php
 }
 
+//$pre = apply_filters( "genesis_markup_{$args['context']}", false, $args );
+//add_filter('genesis_markup_footer-widgets_output', 'add_footer_id_filter',10,2);
+// function add_footer_id_filter($tag, $args) {
+// 	echo '<pre>';
+// 	print_r($tag);
+// 	echo '</pre>';
+// 	echo '<pre>';
+// 	print_r($args);
+// 	echo '</pre>';
+// }
+// add_filter('genesis_markup_footer-widgets', 'add_footer_id_filter',10,1);
+
+// function add_footer_id_filter($args) {
+// 	// echo '<pre>';
+// 	// print_r($args);
+// 	// echo '</pre>';
+// 	$args = '<div id="xxx">';
+// 	return $args;
+// }
+
 //* Include Featured Post Widget
 include_once( CHILD_DIR . '/lib/featured-project-widget.php' );
 function rc_replace_featured_post_widget() {

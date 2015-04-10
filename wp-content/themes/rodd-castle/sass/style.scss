@@ -78,6 +78,7 @@
 	- Sidebar
 	- Footer Widgets
 	- Site Footer
+	- Single
 	- Media Queries
 		- Retina Display
 		- Max-width: 1139px
@@ -1962,6 +1963,17 @@ Site Footer
 	text-transform: uppercase;
 }
 
+/*
+Single
+---------------------------------------------------------------------------------------------------- */
+
+.single {
+	.entry-content {
+		font-size: 16px;
+  		font-family: 'Open Sans', sans-serif;
+  		font-weight: 400;
+	}
+}
 
 /*
 Media Queries

@@ -60,12 +60,12 @@ function parallax_home_genesis_meta() {
 function parallax_homepage_widgets() {
 
 	genesis_widget_area( 'home-section-1', array(
-		'before' => '<div class="home-odd home-section-1 widget-area"><div class="wrap">',
+		'before' => '<div id="home" class="home-odd home-section-1 widget-area"><div class="wrap">',
 		'after'  => '</div></div>',
 	) );
 
 	genesis_widget_area( 'home-section-2', array(
-		'before' => '<div class="home-even home-section-2 widget-area"><div class="wrap">',
+		'before' => '<div id="about" class="home-even home-section-2 widget-area"><div class="wrap">',
 		'after'  => '</div></div>',
 	) );
 
@@ -80,10 +80,16 @@ function parallax_homepage_widgets() {
 	) );
 
 	genesis_widget_area( 'home-section-5', array(
-		'before' => '<div class="home-even home-section-5 widget-area"><div class="wrap">',
+		'before' => '<div id="projects" class="home-even home-section-5 widget-area"><div class="wrap">',
 		'after'  => '</div></div>',
 	) );
 
+}
+
+add_filter('genesis_markup_footer-widgets', 'add_footer_id_filter',10,1);
+function add_footer_id_filter($args) {
+	$args = '<div id="contact" class="footer-widgets">';
+	return $args;
 }
 
 genesis();
