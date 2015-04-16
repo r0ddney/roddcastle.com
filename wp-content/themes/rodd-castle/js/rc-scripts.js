@@ -5,15 +5,12 @@ jQuery(document).ready(function($) {
 		animation: "slide"
 	});
 
-	$('.icon').hover(function() {
-		$(this).fadeOut('400', function() {
-			
-		});
-		$(this).next('.icon_hover').fadeIn('400', function() {
-			
-		});
+	$('.icon_hover').hover(function() {
+		$(this).animate({opacity: 1}, 400);
+		$(this).prev('.icon').animate({opacity: 0}, 400);			
 	}, function() {
-		/* Stuff to do when the mouse leaves the element */
+		$(this).animate({opacity: 0}, 400);
+		$(this).prev('.icon').animate({opacity: 1}, 400);	
 	});
 
 });
