@@ -69,6 +69,7 @@
 		- Current Highlights
 		- Modal
 		- Slider
+		- Projects
 		- Pricing Table
 		- Content
 		- Entries
@@ -459,7 +460,7 @@ h6 {
 	font-family: Montserrat, sans-serif;
 	font-weight: 400;
 	line-height: 1.2;
-	margin: 0 0 20px;
+	margin: 0 0 24px;
 }
 
 h1 {
@@ -1467,13 +1468,14 @@ Content Area
 --------------------------------------------- */
 
 div.modal {
-	width: 70% !important;
+	width: 90% !important;
 	overflow: hidden;
 	background-color: white;
 	padding: 0;
 	font-size: 16px;
   	font-family: 'Open Sans', sans-serif;
   	font-weight: 400;
+  	color: $grey-darker;
 	@include border-radius(0px);
 
 	.two-thirds {
@@ -1489,12 +1491,45 @@ div.modal {
 		top: 12.5px;
 		right: 12.5px;
 	}
+
+	.project-meta {
+		font-family: 'Sorts Mill Goudy', sans-serif;
+		font-style: italic;
+	}
+
+	.icon-date:before {
+		content: "\e604";
+		font-style: normal;
+		margin-right: 12px;
+		padding: 5px;
+		border: 2px solid $yellow;
+		@include border-radius(50%);
+		color: $yellow;
+		font-family: 'icomoon';
+	}
+
+	.icon-tools:before {
+		content: "\e603";
+		font-style: normal;
+		margin-right: 12px;
+		padding: 5px;
+		border: 2px solid $yellow;
+		@include border-radius(50%);
+		color: $yellow;
+		font-family: 'icomoon';
+	}
 }
 
 #project_slider {
 	overflow: hidden;
 	background: transparent;
 	border: none;
+
+	.flex-control-nav {
+		bottom: 24px;
+		z-index: 2;
+	}
+
 }
 
 /* Slider
@@ -1525,6 +1560,14 @@ div.modal {
 	-moz-osx-font-smoothing: grayscale;
 }
 
+.icon-wrench:before {
+	content: "\e603";
+}
+
+.icon-calendar:before {
+	content: "\e604";
+}
+
 .icon-arrow-left2:before {
 	content: "\e60a";
 }
@@ -1533,7 +1576,7 @@ div.modal {
 	content: "\e60b";
 }
 
-.widget_slider_widget {
+.widget_slider_widget, .modal {
 
 	.flex-direction-nav a {
 		text-decoration: none;
@@ -1601,10 +1644,52 @@ div.modal {
 
 		&.flex-active {
 			background: $yellow;
-	  		border: $yellow;
+	  		border-color: $yellow;
 		}
 	}
 
+}
+
+/* Projects
+--------------------------------------------- */
+
+.alignnone {
+	position: relative;
+	margin-bottom: 0;
+}
+
+@mixin vertical-align {
+  position: relative;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+.expand-container {
+	background: rgba(254,204,23,.5);
+	position: absolute;
+	height: 100%;
+	// line-height: 16;
+	//opacity: 0;
+	top: 0;
+	left: 0;
+	z-index: 0.5;
+	width: 100%;
+	text-align: center;
+	opacity: 0;
+}
+
+.expand {
+	//position: absolute;
+	// display: inline-block;
+	margin: 0 auto;
+	color: white;
+	background-color: $black;
+	width: 36px;
+	@include border-radius(50%);
+	@include vertical-align;
+	//margin-left: -18px;
 }
 
 /* Pricing Table
@@ -1752,6 +1837,10 @@ p.entry-meta {
 	p.entry-meta {
 		font-size: 16px;
 		text-transform: uppercase;
+		padding-top: 16px;
+		a {
+			color: $grey-darker;
+		}
 	}
 }
 
@@ -2013,7 +2102,7 @@ Footer Widgets
 	background-color: #f04848;
 	clear: both;
 	font-size: 28px;
-	padding: 100px 0;
+	//padding: 100px 0;
 	text-align: center;
 	//overflow: hidden;
 }
@@ -2082,6 +2171,10 @@ Footer Widgets
 	}
  
 	zoom: 1; /* ie 6/7 */
+
+	a img{
+		display: block;
+	}
 }
 
 .instagram-pics li {
@@ -2092,14 +2185,33 @@ Footer Widgets
 	// margin-top: -250px;
 }
 
-#text-3 {
+.footer-widgets-1 {
 	position: relative;
-	margin-top: -25%;
+}
+
+#text-3 {
+	position: absolute;
+	top: 20%;
+	width: 100%;
 }
 
 #cnss_widget-2 {
+	position: absolute;
+	top: 20%;
+	width: 100%;
+	margin-top: 288px;
 }
 
+.Facebook:before {
+	content: "\e603";
+	font-style: normal;
+	//margin-right: 12px;
+	padding: 5px;
+	border: 2px solid $yellow;
+	@include border-radius(50%);
+	color: $yellow;
+	font-family: 'icomoon';
+}
 
 /*
 Site Footer

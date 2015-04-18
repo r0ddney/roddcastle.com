@@ -37,8 +37,8 @@ jQuery(document).ready(function($) {
 
 					   $one_third.append('<h4 class="widget-title">'+response.the_title+'</h4>');
 					   $one_third.append('<p>'+response.project_info+'</p>');
-					   $one_third.append('<p>'+response.project_date+'</p>');
-					   $one_third.append('<p>'+response.project_tools+'</p>');
+					   $one_third.append('<p class="project-meta icon-date">'+response.project_date+'</p>');
+					   $one_third.append('<p class="project-meta icon-tools">'+response.project_tools+'</p>');
 
 					   $modal.append($two_thirds);
 					   $modal.append($one_third);
@@ -46,7 +46,7 @@ jQuery(document).ready(function($) {
 						$modal.modal({
 							fadeDuration: 500
 						});
-						$('.modal').height($(window).height()/1.2);
+						$('.modal').height($(window).height()/1.1);
 					   $('.modal-spinner').removeAttr('style');
 						
 						$('#project_slider').flexslider();
