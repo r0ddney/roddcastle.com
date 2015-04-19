@@ -60,7 +60,12 @@ jQuery(document).ready(function($) {
 		$(this).parent().next('.entry-header').children('.entry-title').children('a').removeAttr('style');
 	});
 
-	//Instagram height
-	//$( 'ul.cnss-social-icon li img' ).unbind( "hover" );
+	//Social icons
+	$( 'ul.cnss-social-icon li img' ).unbind( "hover" );
+	$( 'ul.cnss-social-icon li img' ).hover(function() {
+		$(this).animate({backgroundColor: "#FECC17"}, 400);
+	}, function() {
+		$(this).animate({backgroundColor: "transparent"}, 400);
+	});
 	
 });

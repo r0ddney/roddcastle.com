@@ -2202,16 +2202,11 @@ Footer Widgets
 	margin-top: 288px;
 }
 
-.Facebook:before {
-	content: "\e603";
-	font-style: normal;
-	//margin-right: 12px;
-	padding: 5px;
-	border: 2px solid $yellow;
+
+ul.cnss-social-icon li img {
 	@include border-radius(50%);
-	color: $yellow;
-	font-family: 'icomoon';
 }
+
 
 /*
 Site Footer
