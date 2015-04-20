@@ -103,16 +103,20 @@ remove_action( 'genesis_footer', 'genesis_footer_markup_close', 15 );
 add_action( 'genesis_footer', 'rc_custom_footer' );
 function rc_custom_footer() { ?>
  
-	<div class="site-footer">
+	<!-- <div class="site-footer">
 		<div class="wrap">
-			<img src="<?php echo get_stylesheet_directory_uri() . '/images/color_logo.svg'; ?>" alt="logo">
+			<img src="<?php //echo get_stylesheet_directory_uri() . '/images/color_logo.svg'; ?>" alt="logo">
 			<p>Coopers Beach, New Zealand</p>
 			<p>***</p>
-			<p>&copy;<?php echo date("Y"); ?> RODD CASTLE</p>
+			<p>&copy;<?php //echo date("Y"); ?> RODD CASTLE</p>
 		</div>
-	</div>
+	</div> -->
  
 <?php
+	genesis_widget_area( 'footer-2', array(
+		'before' => '<div class="site-footer"><div class="wrap">',
+		'after'  => '</div></div>',
+	) );
 }
 
 //$pre = apply_filters( "genesis_markup_{$args['context']}", false, $args );
@@ -146,249 +150,41 @@ function rc_replace_featured_post_widget() {
 }
 add_action( 'widgets_init', 'rc_replace_featured_post_widget' );
 
+
 //* Add Featured Project image size
 add_image_size( 'featured-project', 500, 500, true );
 add_image_size( 'project-image', 1024, 768, false );
 
 
-class RC_About_Me_Widget extends WP_Widget {
-
-	/**
-	 * Sets up the widgets name etc
-	 */
-	public function __construct() {
-		parent::__construct(
-			'about_me_widget', // Base ID
-			__( 'About Me', 'text_domain' ), // Name
-			array( 'description' => __( 'A widget for displaying my about me info', 'text_domain' ), ) // Args
-		);
-	}
-
-	/**
-	 * Outputs the content of the widget
-	 *
-	 * @param array $args
-	 * @param array $instance
-	 */
-	public function widget( $args, $instance ) {
-		$widget_id = $args['widget_id'];
-		echo $args['before_widget'];
-		if ( get_field('profile_image', 'widget_' . $widget_id) ) {
-			$profile_image = get_field('profile_image', 'widget_' . $widget_id);
-			//print_r($profile_image);
-			echo '<img id="profile_image" src="'.$profile_image['sizes']['featured-project'].'" alt="'.$profile_image['title'].'">';
-		}
-		if ( ! empty( $instance['title'] ) ) {
-			echo $args['before_title'] . apply_filters( 'widget_title', $instance['title'] ). $args['after_title'];
-		}
-		if ( get_field('bio', 'widget_' . $widget_id) ) {
-			the_field('bio', 'widget_' . $widget_id);
-		}
-		echo $args['after_widget'];
-	}
-
-	/**
-	 * Outputs the options form on admin
-	 *
-	 * @param array $instance The widget options
-	 */
-	public function form( $instance ) {
-		$title = ! empty( $instance['title'] ) ? $instance['title'] : __( 'New title', 'text_domain' );
-		?>
-		<p>
-		<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:' ); ?></label> 
-		<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>">
-		</p>
-		<?php 
-	}
-
-	/**
-	 * Processing widget options on save
-	 *
-	 * @param array $new_instance The new options
-	 * @param array $old_instance The previous options
-	 */
-	public function update( $new_instance, $old_instance ) {
-		$instance = array();
-		$instance['title'] = ( ! empty( $new_instance['title'] ) ) ? strip_tags( $new_instance['title'] ) : '';
-
-		return $instance;
-	}
-}
-
 // register RC_About_Me_Widget widget
+include_once( CHILD_DIR . '/lib/about-me-widget.php' );
 function register_rc_about_me_widget() {
     register_widget( 'RC_About_Me_Widget' );
 }
 add_action( 'widgets_init', 'register_rc_about_me_widget' );
 
 
-
-class RC_Current_Highlights_Widget extends WP_Widget {
-
-	/**
-	 * Sets up the widgets name etc
-	 */
-	public function __construct() {
-		parent::__construct(
-			'current_highlights_widget', // Base ID
-			__( 'Current Highlights', 'text_domain' ), // Name
-			array( 'description' => __( 'A widget for displaying my current highlights', 'text_domain' ), ) // Args
-		);
-	}
-
-	/**
-	 * Outputs the content of the widget
-	 *
-	 * @param array $args
-	 * @param array $instance
-	 */
-	public function widget( $args, $instance ) {
-		$widget_id = $args['widget_id'];
-
-		echo $args['before_widget'];
-
-		if ( ! empty( $instance['title'] ) ) {
-			echo $args['before_title'] . apply_filters( 'widget_title', $instance['title'] ). $args['after_title'];
-		}
-
-		if ( get_field('bio', 'widget_' . $widget_id) ) {
-			the_field('bio', 'widget_' . $widget_id);
-		}
-
-		if(get_field('highlight', 'widget_' . $widget_id)) {
-			while(the_repeater_field('highlight', 'widget_' . $widget_id)) {
-				$icon = get_sub_field('icon', 'widget_' . $widget_id);
-				$icon_hover = get_sub_field('icon_hover', 'widget_' . $widget_id);
-				//print_r($icon);
-				echo '<div class="one-third">';
-				echo '<div class="icons">';
-				echo '<img class="icon" src="'.$icon['url'].'" alt="'.$icon['title'].'">';
-				echo '<img class="icon_hover" src="'.$icon_hover['url'].'" alt="'.$icon_hover['title'].'">';
-				echo "</div>";
-				the_sub_field('content', 'widget_' . $widget_id);
-				echo '</div>';
-			}
-		}
-
-		echo $args['after_widget'];
-	}
-
-	/**
-	 * Outputs the options form on admin
-	 *
-	 * @param array $instance The widget options
-	 */
-	public function form( $instance ) {
-		$title = ! empty( $instance['title'] ) ? $instance['title'] : __( 'New title', 'text_domain' );
-		?>
-		<p>
-		<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:' ); ?></label> 
-		<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>">
-		</p>
-		<?php 
-	}
-
-	/**
-	 * Processing widget options on save
-	 *
-	 * @param array $new_instance The new options
-	 * @param array $old_instance The previous options
-	 */
-	public function update( $new_instance, $old_instance ) {
-		$instance = array();
-		$instance['title'] = ( ! empty( $new_instance['title'] ) ) ? strip_tags( $new_instance['title'] ) : '';
-
-		return $instance;
-	}
-}
-
 // register RC_Current_Highlights_Widget widget
+include_once( CHILD_DIR . '/lib/current-highlights-widget.php' );
 function register_rc_current_highlights_widget() {
     register_widget( 'RC_Current_Highlights_Widget' );
 }
 add_action( 'widgets_init', 'register_rc_current_highlights_widget' );
 
 
-
-class RC_Slider_Widget extends WP_Widget {
-
-	/**
-	 * Sets up the widgets name etc
-	 */
-	public function __construct() {
-		parent::__construct(
-			'slider_widget', // Base ID
-			__( 'Slider', 'text_domain' ), // Name
-			array( 'description' => __( 'A widget for displaying my images as a responsive slider', 'text_domain' ), ) // Args
-		);
-	}
-
-	/**
-	 * Outputs the content of the widget
-	 *
-	 * @param array $args
-	 * @param array $instance
-	 */
-	public function widget( $args, $instance ) {
-		$widget_id = $args['widget_id'];
-
-		echo $args['before_widget'];
-
-		if ( ! empty( $instance['title'] ) ) {
-			echo $args['before_title'] . apply_filters( 'widget_title', $instance['title'] ). $args['after_title'];
-		}
-
-		if(get_field('slider_images', 'widget_' . $widget_id)) {
-			echo '<div class="flexslider">';
-			echo '<ul class="slides">';
-			while(the_repeater_field('slider_images', 'widget_' . $widget_id)) {
-				$image_array = get_sub_field('image', 'widget_' . $widget_id);
-				echo '<li>';
-				echo '<img src="'.$image_array['url'].'" alt="'.$image_array['title'].'">';
-				echo '</li>';
-			}
-			echo '</ul>';
-			echo '</div>';
-		}
-
-		echo $args['after_widget'];
-	}
-
-	/**
-	 * Outputs the options form on admin
-	 *
-	 * @param array $instance The widget options
-	 */
-	public function form( $instance ) {
-		//$title = ! empty( $instance['title'] ) ? $instance['title'] : __( 'New title', 'text_domain' );
-		?>
-		<!-- <p>
-		<label for="<?php //echo $this->get_field_id( 'title' ); ?>"><?php //_e( 'Title:' ); ?></label> 
-		<input class="widefat" id="<?php //echo $this->get_field_id( 'title' ); ?>" name="<?php //echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php //echo esc_attr( $title ); ?>">
-		</p> -->
-		<?php 
-	}
-
-	/**
-	 * Processing widget options on save
-	 *
-	 * @param array $new_instance The new options
-	 * @param array $old_instance The previous options
-	 */
-	public function update( $new_instance, $old_instance ) {
-		$instance = array();
-		//$instance['title'] = ( ! empty( $new_instance['title'] ) ) ? strip_tags( $new_instance['title'] ) : '';
-
-		return $instance;
-	}
-}
-
 // register RC_Slider_Widget widget
+include_once( CHILD_DIR . '/lib/slider-widget.php' );
 function register_rc_slider_widget() {
     register_widget( 'RC_Slider_Widget' );
 }
 add_action( 'widgets_init', 'register_rc_slider_widget' );
+
+
+include_once( CHILD_DIR . '/lib/footer-widget.php' );
+function register_rc_footer_widget() {
+    register_widget( 'RC_Footer_Widget' );
+}
+add_action( 'widgets_init', 'register_rc_footer_widget' );
 
 
 // Add contact area scrim to instagram widget
@@ -397,8 +193,6 @@ add_action( 'widgets_init', 'register_rc_slider_widget' );
 // }
 // add_action( 'wpiw_before_widget', 'instagram_widget_add_scrim' );
 //do_action( 'wpiw_before_widget', $instance );
-
-
 
 
 //* Hook after post widget after the entry content
@@ -474,6 +268,11 @@ genesis_register_sidebar( array(
 	'id'          => 'after-entry',
 	'name'        => __( 'After Entry', 'parallax' ),
 	'description' => __( 'This is the after entry widget area.', 'parallax' ),
+) );
+genesis_register_sidebar( array(
+	'id'          => 'footer-2',
+	'name'        => __( 'Footer 2', 'parallax' ),
+	'description' => __( 'This is the end of the page.', 'parallax' ),
 ) );
 
 /**
