@@ -63,9 +63,9 @@ jQuery(document).ready(function($) {
 	//Social icons
 	$( 'ul.cnss-social-icon li img' ).unbind( "hover" );
 	$( 'ul.cnss-social-icon li img' ).hover(function() {
-		$(this).animate({backgroundColor: "#FECC17"}, 400);
+		$(this).animate({backgroundColor: "#FECC17", borderColor: "#FECC17"}, 400);
 	}, function() {
-		$(this).animate({backgroundColor: "transparent"}, 400);
+		$(this).animate({backgroundColor: "transparent", borderColor: "white"}, 400);
 	});
 	
 });

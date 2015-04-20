@@ -2205,8 +2205,10 @@ Footer Widgets
 
 ul.cnss-social-icon li img {
 	@include border-radius(50%);
+	padding: 10px;
+  	box-sizing: content-box;
+  	border: 2.5px solid white;
 }
-
 
 /*
 Site Footer
