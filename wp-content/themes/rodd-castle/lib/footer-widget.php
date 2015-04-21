@@ -59,7 +59,7 @@ class RC_Footer_Widget extends WP_Widget {
 				echo '</div>';
 			}
 		}
-		echo '<p id="copyright">Copyright &copy; '.date("Y").', Rodd Castle.</p>';
+		echo '<p id="copyright" class="one-half center-column">Copyright &copy; '.date("Y").', Rodd Castle.</p>';
 		echo $args['after_widget'];
 	}
 

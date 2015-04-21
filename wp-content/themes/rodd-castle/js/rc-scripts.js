@@ -1,17 +1,38 @@
 jQuery(document).ready(function($) {
 
+	//Invisible navbar
+	var scrolled = false;
+	$(window).scroll(function() {
+		if ($(this).scrollTop() > 135 && $(window).width() > 1006){  
+			console.log($(window).width());
+			if (scrolled == false) {
+				$('.site-header').animate({backgroundColor: '#333333'}, 400);
+			}			
+			scrolled = true;
+		}
+		else{
+			//console.log($(this).scrollTop());
+			if (scrolled == true) {
+				$('.site-header').animate({backgroundColor: "transparent"}, 400);
+				scrolled = false;
+			}
+		}
+	});
+
 	// Initialise slider
 	$('.flexslider').flexslider({
 		animation: "slide"
 	});
 
 	//Icon hover styles
-	$('.icon_hover').hover(function() {
-		$(this).animate({opacity: 1}, 400);
-		$(this).prev('.icon').animate({opacity: 0}, 400);			
+	$('.button').hover(function() {
+		$(this).parent().prevAll('.icons').children('.icon_hover').animate({opacity: 1}, 400);
+		$(this).parent().prevAll('.icons').children('.icon').animate({opacity: 0}, 400);
+		$(this).parent().prevAll('h2').animate({color: '#FECC17'}, 400);			
 	}, function() {
-		$(this).animate({opacity: 0}, 400);
-		$(this).prev('.icon').animate({opacity: 1}, 400);	
+		$(this).parent().prevAll('.icons').children('.icon_hover').animate({opacity: 0}, 400);
+		$(this).parent().prevAll('.icons').children('.icon').animate({opacity: 1}, 400);
+		$(this).parent().prevAll('h2').animate({color: '#333333'}, 400);
 	});
 
 	//Project hover styles

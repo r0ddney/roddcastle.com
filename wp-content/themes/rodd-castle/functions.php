@@ -152,7 +152,7 @@ add_action( 'widgets_init', 'rc_replace_featured_post_widget' );
 
 
 //* Add Featured Project image size
-add_image_size( 'featured-project', 500, 500, true );
+add_image_size( 'featured-project', 768, 768, true );
 add_image_size( 'project-image', 1024, 768, false );
 
 
