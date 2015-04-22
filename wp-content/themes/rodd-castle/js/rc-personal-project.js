@@ -52,21 +52,27 @@ jQuery(document).ready(function($) {
 						$('#project_slider').flexslider();
 						$('#project_slider').height($('.modal').height());
 
-						timeoutID = window.setTimeout(slowAlert, 500);
-
 						function slowAlert() {
 							$('.slides li').each( function() {
 							    var height = $('#project_slider').height();
 							    console.log(height);
 							    var imageHeight = $(this).find('img').height();
+							    var imageWidth = $(this).find('img').width();
 							    console.log(imageHeight);
 
-							    var offset = (height - imageHeight) / 2;
+							    if (imageHeight > $('#project_slider').height()) {
+							    	$(this).find('img').height($('#project_slider').height());
+							    	$(this).find('img').css('width', 'auto');
+							    } else {
+							    	var offset = (height - imageHeight) / 2;
 
-							    $(this).css('margin-top', offset + 'px');
+							    	$(this).css('margin-top', offset + 'px');
+							    }
 
 							});
 						}
+
+						var timeoutID = window.setTimeout(slowAlert, 500);
 
 						$('.modal').on($.modal.BEFORE_CLOSE, function(event, modal) {
 						  $('.modal').remove();

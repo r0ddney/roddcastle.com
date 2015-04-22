@@ -19,6 +19,16 @@ jQuery(document).ready(function($) {
 		}
 	});
 
+	//Navbar mobile color
+	if ($(window).width() <= 1006) {
+		$('.site-header').css('background-color', '#333333');
+	}
+	$(window).resize(function(event) {
+		if ($(window).width() <= 1006) {
+			$('.site-header').css('background-color', '#333333');
+		}
+	});
+
 	// Initialise slider
 	$('.flexslider').flexslider({
 		animation: "slide"

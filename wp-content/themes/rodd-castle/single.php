@@ -10,8 +10,8 @@
 function acf_project_content() {
 
    the_field('project_info');
-   echo '<p>'.get_field('project_date').'</p>';
-   echo '<p>'.get_field('tools_used').'</p>';
+   echo '<p class="project-meta icon-date">'.get_field('project_date').'</p>';
+   echo '<p class="project-meta icon-tools">'.get_field('tools_used').'</p>';
 
    if( have_rows('project_images') ) {
    		// loop through the rows of data
@@ -34,5 +34,11 @@ remove_action( 'genesis_entry_header', 'genesis_post_info', 12 );
 
 //* Remove the entry meta in the entry footer (requires HTML5 theme support)
 remove_action( 'genesis_entry_footer', 'genesis_post_meta' );
+
+add_filter('genesis_markup_footer-widgets', 'add_footer_id_filter',10,1);
+function add_footer_id_filter($args) {
+   $args = '<div id="contact" class="footer-widgets">';
+   return $args;
+}
 
 genesis();

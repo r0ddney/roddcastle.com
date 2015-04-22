@@ -903,7 +903,8 @@ Common Classes
 .home-even .widget-title,
 .home-odd .widget-title,
 .footer-widgets .widget-title,
-.modal .widget-title {
+.modal .widget-title,
+.single .entry-title {
 	font-size: 72px;
 	margin-bottom: 40px;
 	text-transform: uppercase;
@@ -921,6 +922,18 @@ Common Classes
 			padding-bottom: 30px;
 			width: 95px;
 		}
+	}
+}
+
+.single .entry-title {
+	font-size: 24px;
+	&:after {
+		border-bottom: 3px solid $yellow;
+		content: "";
+		display: block;
+		margin: 0 auto 60px;
+		padding-bottom: 30px;
+		width: 95px;
 	}
 }
 
@@ -1468,15 +1481,18 @@ Content Area
 /* Current Highlights
 --------------------------------------------- */
 
+.highlight {
+	position: relative;
+}
+
 .icons {
 	margin-bottom: 20px;
 }
 
 .icon {
 	position: absolute;
-	&:hover {
-		cursor: pointer;
-	}
+	left: 50%;
+	margin-left: -37.5px;
 }
 
 .icon_hover {
@@ -1484,74 +1500,6 @@ Content Area
 }
 
 /* Modal
---------------------------------------------- */
-
-div.modal {
-	width: 90% !important;
-	overflow: hidden;
-	background-color: white;
-	padding: 0;
-	font-size: 16px;
-  	font-family: 'Open Sans', sans-serif;
-  	font-weight: 400;
-  	color: $grey-darker;
-	@include border-radius(0px);
-
-	.two-thirds {
-		background-color: $grey-lighter;
-		margin-left: 0;
-	}
-
-	.one-third {
-		margin-top: 30px;
-	}
-
-	a.close-modal {
-		top: 12.5px;
-		right: 12.5px;
-	}
-
-	.project-meta {
-		font-family: 'Sorts Mill Goudy', sans-serif;
-		font-style: italic;
-	}
-
-	.icon-date:before {
-		content: "\e604";
-		font-style: normal;
-		margin-right: 12px;
-		padding: 5px;
-		border: 2px solid $yellow;
-		@include border-radius(50%);
-		color: $yellow;
-		font-family: 'icomoon';
-	}
-
-	.icon-tools:before {
-		content: "\e603";
-		font-style: normal;
-		margin-right: 12px;
-		padding: 5px;
-		border: 2px solid $yellow;
-		@include border-radius(50%);
-		color: $yellow;
-		font-family: 'icomoon';
-	}
-}
-
-#project_slider {
-	overflow: hidden;
-	background: transparent;
-	border: none;
-
-	.flex-control-nav {
-		bottom: 24px;
-		z-index: 2;
-	}
-
-}
-
-/* Slider
 --------------------------------------------- */
 
 @font-face {
@@ -1594,6 +1542,82 @@ div.modal {
 .icon-uniE60B:before {
 	content: "\e60b";
 }
+
+.home .modal-spinner {
+	@include border-radius(50%);
+}
+
+div.modal {
+	width: 90% !important;
+	overflow: hidden;
+	background-color: white;
+	padding: 0;
+	font-size: 16px;
+  	font-family: 'Open Sans', sans-serif;
+  	font-weight: 400;
+  	color: $grey-darker;
+	@include border-radius(0px);
+
+	.two-thirds {
+		background-color: $grey-lighter;
+		margin-left: 0;
+	}
+
+	.one-third {
+		margin-top: 30px;
+	}
+
+	a.close-modal {
+		top: 30px;
+		right: 5px;
+	}
+
+}
+
+.project-meta {
+	font-family: 'Sorts Mill Goudy', sans-serif;
+	font-style: italic;
+}
+
+.icon-date:before {
+	content: "\e604";
+	font-style: normal;
+	margin-right: 12px;
+	padding: 5px;
+	border: 2px solid $yellow;
+	@include border-radius(50%);
+	color: $yellow;
+	font-family: 'icomoon';
+}
+
+.icon-tools:before {
+	content: "\e603";
+	font-style: normal;
+	margin-right: 12px;
+	padding: 5px;
+	border: 2px solid $yellow;
+	@include border-radius(50%);
+	color: $yellow;
+	font-family: 'icomoon';
+}
+
+#project_slider {
+	overflow: hidden;
+	background: transparent;
+	border: none;
+
+	.flex-control-nav {
+		bottom: 24px;
+		z-index: 2;
+	}
+
+	.slides img {
+		margin: 0 auto;
+	}
+}
+
+/* Slider
+--------------------------------------------- */
 
 .widget_slider_widget, .modal {
 
@@ -1672,6 +1696,10 @@ div.modal {
 /* Projects
 --------------------------------------------- */
 
+#featured-post-2 .widget-wrap > p {
+	margin-bottom: 72px;
+}
+
 .alignnone {
 	position: relative;
 	margin-bottom: 0;
@@ -1700,14 +1728,19 @@ div.modal {
 }
 
 .expand {
-	//position: absolute;
+	position: absolute;
 	// display: inline-block;
 	margin: 0 auto;
 	color: white;
 	background-color: $black;
 	width: 36px;
 	@include border-radius(50%);
-	@include vertical-align;
+	top: 50%;
+	margin-top: -18px;
+	left: 50%;
+	-webkit-transform: translateX(-50%);
+	-ms-transform: translateX(-50%);
+	transform: translateX(-50%);
 	//margin-left: -18px;
 }
 
@@ -2285,7 +2318,11 @@ Site Footer
 	}
 	hr {
 		margin: 0;
-		border-color: $grey-darker;
+		//border-color: $grey-darker;
+		height:1px;
+		border-width:0;
+		color:$grey-darker;
+		background-color:$grey-darker;
 	}
 	p {
 		margin: 16px 0;
@@ -2307,16 +2344,43 @@ Single
 ---------------------------------------------------------------------------------------------------- */
 
 .single {
+	.entry-title:after {
+		margin-bottom: 32px;
+	}
 	.entry-content {
-		font-size: 16px;
+		font-size: 24px;
   		font-family: 'Open Sans', sans-serif;
-  		font-weight: 400;
+  		font-weight: 300;
+  		color: $grey-darker;
+  		text-align: center;
+	}
+	.project-meta {
+		display: inline-block;
+		margin-left: 16px;
+		margin-right: 16px;
+		font-size: 16px;
+		margin-bottom: 72px;
 	}
 }
 
 /*
 Media Queries
 ---------------------------------------------------------------------------------------------------- */
+
+@media only screen and (max-width: 1650px) and (min-width: 1140px) {
+	.footer-widgets p:last-child {
+		display: none;
+	}
+	#cnss_widget-2 {
+		margin-top: 216px;
+	}
+}
+
+@media only screen and (max-width: 1335px) and (min-width: 1140px) {
+	#text-3, #cnss_widget-2 {
+		top: 13%;
+	}
+}
 
 @media only screen and (max-width: 1139px) {
 
@@ -2521,7 +2585,7 @@ Media Queries
 	  }
 	}
 
-	#contact {
+	.footer-widgets {
 		.wrap {
 			padding: 0;
 		}
@@ -2552,6 +2616,16 @@ Media Queries
 	#cnss_widget-2 {
 		top: 0;
 	}
+
+	ul.cnss-social-icon li a img {
+		margin: 0 6px 0!important;
+	}
+}
+
+@media only screen and (max-width: 480px) and (min-width: 411px) {
+	#text-3 .textwidget {
+		display: block;
+	}
 }
 
 @media only screen and (max-width: 480px) {
@@ -2563,8 +2637,20 @@ Media Queries
 	}
 
 	.home-even,
-	.home-odd {
+	.home-odd,
+	.textwidget {
 		font-size: 22px;
 	}
 
+	ul.cnss-social-icon li a img {
+		width: 20px;
+		height: 20px;
+	}
+
+}
+
+@media only screen and (max-width: 410px) {
+	#cnss_widget-2 {
+	  margin-top: 160px;
+	}
 }
