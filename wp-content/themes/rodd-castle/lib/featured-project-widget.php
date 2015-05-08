@@ -170,7 +170,7 @@ class RC_Featured_Project extends WP_Widget {
 			// 	printf( '<a href="%s" title="%s" class="%s">%s</a>', get_permalink(), the_title_attribute( 'echo=0' ), esc_attr( $instance['image_alignment'] ), $image );
 
 			if ( $instance['show_image'] && $image )
-				printf( '<div title="%s" class="%s">%s</div>', the_title_attribute( 'echo=0' ), esc_attr( $instance['image_alignment'] ), $image.'<a href="'.get_permalink().'" class="expand-container" rel="ajax:modal"><div class="expand">+</div></a>' );
+				printf( '<div title="%s" class="%s">%s</div>', the_title_attribute( 'echo=0' ), esc_attr( $instance['image_alignment'] ), $image.'<a href="'.get_permalink().'" class="expand-container" rel="ajax:modal" data-post_id="'.get_the_ID().'"><div class="expand">+</div></a>' );
 				//printf( '<a href="%s" class="%s">%s</a>', get_permalink(), 'expand-container', '<div class="expand">+</div>' );
 
 			if ( ! empty( $instance['show_gravatar'] ) ) {

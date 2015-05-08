@@ -238,6 +238,21 @@ function rc_user_profile( $sizes ) {
 	return $sizes;
 }
 
+/**
+ *
+ * Remove post widget categories link
+ *
+*/
+// add_filter( 'genesis_post_categories_shortcode', 'rc_remove_post_categories_link' );
+// function rc_remove_post_categories_link( $atts ) {
+// 	echo "<pre>";
+// 	print_r($atts);
+// 	print(arg)
+// 	echo "</pre>";
+// 	//return $output;
+// }
+//return apply_filters( 'genesis_post_categories_shortcode', $output, $atts );
+
 //* Register widget areas
 genesis_register_sidebar( array(
 	'id'          => 'home-section-1',

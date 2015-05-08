@@ -43,7 +43,7 @@ class RC_Slider_Widget extends WP_Widget {
 		}
 
 		if(get_field('slider_images', 'widget_' . $widget_id)) {
-			echo '<div class="flexslider">';
+			echo '<div id="main_slider" class="flexslider">';
 			echo '<ul class="slides">';
 			while(the_repeater_field('slider_images', 'widget_' . $widget_id)) {
 				$image_array = get_sub_field('image', 'widget_' . $widget_id);

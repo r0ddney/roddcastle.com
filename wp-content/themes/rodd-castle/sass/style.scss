@@ -324,7 +324,7 @@ $grey-darker: #808080;
 $yellow: #FECC17;
 $black: #333333;
 
-.parallax-pro-yellow a,
+.parallax-pro-yellow a:hover,
 .parallax-pro-yellow .entry-title a:hover,
 .parallax-pro-yellow .genesis-nav-menu a:hover,
 .parallax-pro-yellow .genesis-nav-menu .current-menu-item > a,
@@ -349,6 +349,10 @@ $black: #333333;
 
 .parallax-pro-yellow .pricing-table a.button:hover {
 	border: 3px solid $yellow;
+}
+
+.parallax-pro-yellow a {
+	color: $black;
 }
 
 
@@ -937,8 +941,11 @@ Common Classes
 	}
 }
 
-.modal .widget-title:after {
-	margin: 0 0 60px;
+.modal .widget-title {
+	margin-bottom: 32px;
+	&:after {
+		margin: 0 0 32px;
+	}
 }
 
 
@@ -1432,6 +1439,9 @@ Content Area
 	p {
 		color: $grey-darker;
 	}
+	.widget-title{
+		margin-bottom: 72px;
+	}
 }
 
 .home-section-4 {
@@ -1549,7 +1559,7 @@ Content Area
 
 div.modal {
 	width: 90% !important;
-	overflow: hidden;
+	//overflow: hidden;
 	background-color: white;
 	padding: 0;
 	font-size: 16px;
@@ -1565,11 +1575,28 @@ div.modal {
 
 	.one-third {
 		margin-top: 30px;
+		overflow: auto;
+		// a {
+		// 	font-size: 24px;
+  // 			font-family: 'Open Sans', sans-serif;
+  // 			font-weight: 300;
+  // 			color: $black;
+  // 			&:hover {
+  // 				color: $yellow;
+  // 			}
+		// }
 	}
 
 	a.close-modal {
 		top: 30px;
 		right: 5px;
+		&:hover {
+			background: url(js/jquery-modal-master/close_hover.svg) no-repeat 0 0;
+		}
+	}
+
+	p {
+		margin-bottom: 24px;
 	}
 
 }
@@ -1579,15 +1606,18 @@ div.modal {
 	font-style: italic;
 }
 
-.icon-date:before {
-	content: "\e604";
-	font-style: normal;
-	margin-right: 12px;
-	padding: 5px;
-	border: 2px solid $yellow;
-	@include border-radius(50%);
-	color: $yellow;
-	font-family: 'icomoon';
+.icon-date {
+	padding-top: 24px;
+	&:before {
+		content: "\e604";
+		font-style: normal;
+		margin-right: 12px;
+		padding: 5px;
+		border: 2px solid $yellow;
+		@include border-radius(50%);
+		color: $yellow;
+		font-family: 'icomoon';
+	}
 }
 
 .icon-tools:before {
@@ -1742,6 +1772,10 @@ div.modal {
 	-ms-transform: translateX(-50%);
 	transform: translateX(-50%);
 	//margin-left: -18px;
+}
+
+.entry-categories a {
+	cursor: default;
 }
 
 /* Pricing Table

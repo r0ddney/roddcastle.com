@@ -27,7 +27,7 @@ jQuery(document).ready(function($) {
 
 					   $('body').append($modal);
 
-					   console.log(response.project_images);
+					   console.log(response);
 
 						for (var i = 0; i < response.project_images.length; i++) {
 							$slides.append('<li><img src="'+response.project_images[i]['sizes']['project-image']+'" alt="'+response.project_images[i]['title']+'"></li>');
@@ -49,11 +49,15 @@ jQuery(document).ready(function($) {
 						$('.modal').height($(window).height()/1.1);
 					   $('.modal-spinner').removeAttr('style');
 						
-						$('#project_slider').flexslider();
-						$('#project_slider').height($('.modal').height());
+						$('#project_slider').flexslider({
+							slideshow: false,
+							animationSpeed: 1000
+						});
+						$('#project_slider, .modal .two-thirds').height($('.modal').height());
+						$('.modal .one-third').height($('.modal').height()-30);
 
 						function slowAlert() {
-							$('.slides li').each( function() {
+							$('#project_slider .slides li').each( function() {
 							    var height = $('#project_slider').height();
 							    console.log(height);
 							    var imageHeight = $(this).find('img').height();

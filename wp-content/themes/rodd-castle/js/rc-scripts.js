@@ -1,7 +1,23 @@
 jQuery(document).ready(function($) {
 
-	//Invisible navbar
 	var scrolled = false;
+	if ($(window).scrollTop() > 135 && $(window).width() > 1006){  
+		console.log($(window).width());
+		console.log($(window).scrollTop());
+		if (scrolled == false) {
+			$('.site-header').animate({backgroundColor: '#333333'}, 400);
+		}			
+		scrolled = true;
+	}
+	else{
+		//console.log($(this).scrollTop());
+		if (scrolled == true) {
+			$('.site-header').animate({backgroundColor: "transparent"}, 400);
+			scrolled = false;
+		}
+	}
+
+	//Invisible navbar
 	$(window).scroll(function() {
 		if ($(this).scrollTop() > 135 && $(window).width() > 1006){  
 			console.log($(window).width());
@@ -30,8 +46,11 @@ jQuery(document).ready(function($) {
 	});
 
 	// Initialise slider
-	$('.flexslider').flexslider({
-		animation: "slide"
+	$('#main_slider').flexslider({
+		animation:"slide",
+		easing: "easeInOutCubic",
+		animationSpeed: 1000,
+		pauseOnHover: true
 	});
 
 	//Icon hover styles
@@ -89,6 +108,11 @@ jQuery(document).ready(function($) {
 		$(this).animate({opacity: 0}, 400);
 		$(this).parent().next('.entry-header').animate({backgroundColor: "#F2F2F2"}, 400);
 		$(this).parent().next('.entry-header').children('.entry-title').children('a').removeAttr('style');
+	});
+
+	//Project prevent categories click
+	$('.entry-categories a').click(function(event) {
+		event.preventDefault();
 	});
 
 	//Social icons
