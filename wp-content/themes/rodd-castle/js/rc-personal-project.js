@@ -30,7 +30,13 @@ jQuery(document).ready(function($) {
 					   console.log(response);
 
 						for (var i = 0; i < response.project_images.length; i++) {
-							$slides.append('<li><img src="'+response.project_images[i]['sizes']['project-image']+'" alt="'+response.project_images[i]['title']+'"></li>');
+							var orientation;
+							if(response.project_images[i]['height'] > response.project_images[i]['width'] || response.project_images[i]['height'] == response.project_images[i]['width']) {
+								orientation = "portrait";
+							} else {
+								orientation = "landscape";
+							}
+							$slides.append('<li><img class="'+orientation+'" src="'+response.project_images[i]['sizes']['project-image']+'" alt="'+response.project_images[i]['title']+'"></li>');
 						};
 					   $flexslider.append($slides);
 					   $two_thirds.append($flexslider);
@@ -57,30 +63,30 @@ jQuery(document).ready(function($) {
 						$('.modal .one-third').height($('.modal').height()-30);
 
 						function slowAlert() {
-							$('#project_slider .slides li').each( function() {
+							$('#project_slider .slides li').load().each( function() {
 							    var height = $('#project_slider').height();
 							    console.log(height);
-							    var imageHeight = $(this).find('img').height();
-							    var imageWidth = $(this).find('img').width();
+							    var imageHeight = $(this).find('img').load().height();
+							    var imageWidth = $(this).find('img').load().width();
 							    console.log(imageHeight);
 
 							    if (imageHeight > $('#project_slider').height()) {
-							    	$(this).find('img').height($('#project_slider').height());
-							    	$(this).find('img').css('width', 'auto');
+							    	$(this).find('img').load().height($('#project_slider').height());
+							    	$(this).find('img').load().css('width', 'auto');
 							    } else {
 							    	var offset = (height - imageHeight) / 2;
 
-							    	$(this).css('margin-top', offset + 'px');
+							    	$(this).load().css('margin-top', offset + 'px');
 							    }
 
 							});
 						}
 
-						var timeoutID = window.setTimeout(slowAlert, 500);
+						//var timeoutID = window.setTimeout(slowAlert, 500);
 
 						$('.modal').on($.modal.BEFORE_CLOSE, function(event, modal) {
 						  $('.modal').remove();
-						  window.clearTimeout(timeoutID);
+						  //window.clearTimeout(timeoutID);
 						});   
 					}
 					else {

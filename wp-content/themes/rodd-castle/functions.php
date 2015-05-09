@@ -317,6 +317,9 @@ function rc_theme_js() {
 	wp_register_script( "rc_personal_project_js", get_stylesheet_directory_uri().'/js/rc-personal-project.js', array('jquery') );
 	wp_localize_script( 'rc_personal_project_js', 'rcAjax', array( 'ajaxurl' => admin_url( 'admin-ajax.php' )));        
 	wp_enqueue_script( 'rc_personal_project_js' );
+	
+	wp_enqueue_script( 'jquery_timing', 'http://creativecouple.github.com/jquery-timing/jquery-timing.min.js', array('jquery'), '', true );
+
 
 }
 add_action( 'wp_enqueue_scripts', 'rc_theme_js' );

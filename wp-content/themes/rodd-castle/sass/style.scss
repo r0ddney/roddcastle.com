@@ -1641,8 +1641,26 @@ div.modal {
 		z-index: 2;
 	}
 
-	.slides img {
-		margin: 0 auto;
+	.slides {
+		height: 100%;
+		li {
+			height: 100%;
+		}
+		img {
+			margin: 0 auto;
+			&.portrait {
+				width: auto;
+				height: 100%;
+			}
+			&.landscape {
+				position: absolute;
+				top: 50%;
+				-webkit-transform: translateY(-50%);
+  				-ms-transform: translateY(-50%);
+  				transform: translateY(-50%);
+				//transform: translate(0, -50%);
+			}
+		}
 	}
 }
 
