@@ -40,6 +40,28 @@ add_theme_support( 'genesis-responsive-viewport' );
 //* Add support for 3-column footer widgets
 add_theme_support( 'genesis-footer-widgets', 1 );
 
+// Change favicon location and add touch icons
+add_filter( 'genesis_pre_load_favicon', 'rc_favicon_filter' );
+function rc_favicon_filter( $favicon ) {
+    echo '<link rel="apple-touch-icon" sizes="57x57" href="'.get_stylesheet_directory_uri().'/apple-touch-icon-57x57.png" />'."\n";
+    echo '<link rel="apple-touch-icon" sizes="60x60" href="'.get_stylesheet_directory_uri().'/apple-touch-icon-60x60.png" />'."\n";
+    echo '<link rel="apple-touch-icon" sizes="72x72" href="'.get_stylesheet_directory_uri().'/apple-touch-icon-72x72.png" />'."\n";
+    echo '<link rel="apple-touch-icon" sizes="76x76" href="'.get_stylesheet_directory_uri().'/apple-touch-icon-76x76.png" />'."\n";
+    echo '<link rel="apple-touch-icon" sizes="114x114" href="'.get_stylesheet_directory_uri().'/apple-touch-icon-114x114.png" />'."\n";
+    echo '<link rel="apple-touch-icon" sizes="120x120" href="'.get_stylesheet_directory_uri().'/apple-touch-icon-120x120.png" />'."\n";
+    echo '<link rel="apple-touch-icon" sizes="144x144" href="'.get_stylesheet_directory_uri().'/apple-touch-icon-144x144.png" />'."\n";
+    echo '<link rel="apple-touch-icon" sizes="152x152" href="'.get_stylesheet_directory_uri().'/apple-touch-icon-152x152.png" />'."\n";
+    echo '<link rel="apple-touch-icon" sizes="180x180" href="'.get_stylesheet_directory_uri().'/apple-touch-icon-180x180.png" />'."\n";
+    echo '<link rel="icon" type="image/png" href="'.get_stylesheet_directory_uri().'/favicon-32x32.png" sizes="32x32" />'."\n";
+    echo '<link rel="icon" type="image/png" href="'.get_stylesheet_directory_uri().'/android-chrome-192x192.png" sizes="192x192" />'."\n";
+    echo '<link rel="icon" type="image/png" href="'.get_stylesheet_directory_uri().'/favicon-96x96.png" sizes="96x96" />'."\n";
+    echo '<link rel="icon" type="image/png" href="'.get_stylesheet_directory_uri().'/favicon-16x16.png" sizes="16x16" />'."\n";
+    echo '<link rel="manifest" href="'.get_stylesheet_directory_uri().'/manifest.json" />'."\n";
+    echo '<meta name="msapplication-TileColor" content="#333333">'."\n";
+    echo '<meta name="msapplication-TileImage" content="'.get_stylesheet_directory_uri().'mstile-144x144.png">'."\n";
+    echo '<meta name="theme-color" content="#333333">'."\n";
+}
+
 //* Reposition the primary navigation menu
 remove_action( 'genesis_after_header', 'genesis_do_nav' );
 add_action( 'genesis_before_content_sidebar_wrap', 'genesis_do_nav' );

@@ -1,26 +1,11 @@
 jQuery(document).ready(function($) {
 
-	var scrolled = false;
-	if ($(window).scrollTop() > 135 && $(window).width() > 1006){  
-		console.log($(window).width());
-		console.log($(window).scrollTop());
-		if (scrolled == false) {
-			$('.site-header').animate({backgroundColor: '#333333'}, 400);
-		}			
-		scrolled = true;
-	}
-	else{
-		//console.log($(this).scrollTop());
-		if (scrolled == true) {
-			$('.site-header').animate({backgroundColor: "transparent"}, 400);
-			scrolled = false;
-		}
-	}
-
-	//Invisible navbar
-	$(window).scroll(function() {
-		if ($(this).scrollTop() > 135 && $(window).width() > 1006){  
+	
+	if( !$('body').hasClass('single') ) {
+		var scrolled = false;
+		if ($(window).scrollTop() > 135 && $(window).width() > 1006){  
 			console.log($(window).width());
+			console.log($(window).scrollTop());
 			if (scrolled == false) {
 				$('.site-header').animate({backgroundColor: '#333333'}, 400);
 			}			
@@ -33,16 +18,34 @@ jQuery(document).ready(function($) {
 				scrolled = false;
 			}
 		}
-	});
+
+		//Invisible navbar
+		$(window).scroll(function() {
+			if ($(this).scrollTop() > 135 && $(window).width() > 1006){  
+				console.log($(window).width());
+				if (scrolled == false) {
+					$('.site-header').animate({backgroundColor: '#333333'}, 400);
+				}			
+				scrolled = true;
+			}
+			else{
+				//console.log($(this).scrollTop());
+				if (scrolled == true) {
+					$('.site-header').animate({backgroundColor: "transparent"}, 400);
+					scrolled = false;
+				}
+			}
+		});
+	}
 
 	//Navbar mobile color
 	if ($(window).width() <= 1006) {
 		$('.site-header').css('background-color', '#333333');
 	}
 	$(window).resize(function(event) {
-		if ($(window).width() <= 1006) {
+		//if ($(window).width() <= 1006) {
 			$('.site-header').css('background-color', '#333333');
-		}
+		//}
 	});
 
 	// Initialise slider
